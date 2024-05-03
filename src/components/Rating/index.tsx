@@ -1,25 +1,37 @@
-import { View } from "react-native"
-import { MaterialIcons } from "@expo/vector-icons"
+import { View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
-import { styles } from "./styles"
+import { stylesheet } from "./styles";
+import { useStyles } from "../../libs/unistyles";
 
 interface Props {
-  max: number
-  value: number
+  max: number;
+  value: number;
 }
 
 export function Rating({ max = 5, value }: Props) {
-  const length = value > max ? max : value
+  const { styles, theme } = useStyles(stylesheet);
+  const length = value > max ? max : value;
 
   return (
     <View style={styles.container}>
       {Array.from({ length }).map((_, index) => (
-        <MaterialIcons key={index} name="star" size={42} color={"#685ED9"} />
+        <MaterialIcons
+          key={index}
+          name="star"
+          size={42}
+          color={theme.colors.primary}
+        />
       ))}
 
       {Array.from({ length: max - value }).map((_, index) => (
-        <MaterialIcons key={index} name="star" size={42} color={"#E3E1E4"} />
+        <MaterialIcons
+          key={index}
+          name="star"
+          size={42}
+          color={theme.colors.shape}
+        />
       ))}
     </View>
-  )
+  );
 }
